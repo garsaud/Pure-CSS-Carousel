@@ -1,0 +1,27 @@
+.carousel {
+	position: relative;
+	overflow: hidden;
+
+	$slides: 5;
+	$delay: 40s; // Time to cycle everything
+
+	> * {
+		position: absolute;
+		left: 0; right: 0;
+		top: 0; bottom: 0;
+		background-size: cover;
+
+		@for $i from 1 through $slides {
+			&:nth-child(#{$i}) {
+				animation: fade#{$i} $delay infinite;
+			}
+			@keyframes fade#{$i} {
+				@for $j from 0 through $slides {
+					#{percentage($j/$slides)} {
+						opacity: if($i==$j+1 or ($i==1 and $j==$slides), 1, 0);
+					}
+				}
+			}
+		}
+	}
+}
